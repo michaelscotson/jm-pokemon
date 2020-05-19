@@ -69,7 +69,7 @@ const jmLogoStyle = {
 };
 
 const headerStyle = {
-  position: "absolute",
+  position: "relative",
   width: "1440px",
   height: "80px",
   left: "0px",
