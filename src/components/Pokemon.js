@@ -2,10 +2,30 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export class Pokemon extends Component {
+  pokemonLowerBoxStyle = () => {
+    return {
+      position: " absolute",
+      left: "5%",
+      right: "5%",
+      top: " 31.41%",
+      bottom: " -3.61%",
+
+      background: "#red",
+      boxSizing: " border-box",
+      boxShadow:
+        " 10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 4px rgba(255, 255, 255, 0.2)",
+      borderRadius: "10px",
+      zIndex: "-1",
+      border: this.props.pokemon.party
+        ? "4px solid rgba(16, 123, 106, 0.4)"
+        : "2px solid #FFFFFF",
+    };
+  };
+
   render() {
-    const { id, name, type, img, party } = this.props.pokemon;
+    const { id, name, types, sprites, party } = this.props.pokemon;
     return (
-      <div style={pokemonStyle}>
+      <div style={pokemonStyle} onClick={this.props.toggleParty.bind(this, id)}>
         <svg
           style={semicircleStyle}
           width="94"
@@ -23,8 +43,8 @@ export class Pokemon extends Component {
           />
         </svg>
 
-        <img src={img} style={pokemonImgStyle}></img>
-        <div style={pokemonLowerBoxStyle}></div>
+        <img src={sprites["front_default"]} style={pokemonImgStyle}></img>
+        <div style={this.pokemonLowerBoxStyle()}></div>
         <div style={pokemonNumberBox}></div>
         <p style={pokemonNumberStyle}>
           #{id < 10 ? "00" : id < 100 ? "0" : ""}
@@ -60,22 +80,6 @@ const pokemonImgStyle = {
   right: "26.26%",
   bottom: "54.51%",
   zIndex: "4",
-};
-
-const pokemonLowerBoxStyle = {
-  position: " absolute",
-  left: "5%",
-  right: "5%",
-  top: " 31.41%",
-  bottom: " -3.61%",
-
-  background: "#red",
-  border: " 2px solid #FFFFFF",
-  boxSizing: " border-box",
-  boxShadow:
-    " 10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 4px rgba(255, 255, 255, 0.2)",
-  borderRadius: "10px",
-  zIndex: "-1",
 };
 
 const pokemonNumberBox = {
@@ -114,7 +118,7 @@ const pokemonNameStyle = {
   right: "2.53%",
   top: "67.87%",
   bottom: "18.77%",
-
+  textTransform: "capitalize",
   fontFamily: "Moret, serif",
   fontStyle: "normal",
   fontWeight: "normal",

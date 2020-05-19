@@ -4,53 +4,56 @@ import Header from "./components/layout/Header";
 import PokemonList from "./components/PokemonList";
 import more_arrow from "./more_arrow.svg";
 import "./App.css";
+import axios from "axios";
 
 class App extends React.Component {
   state = {
-    pokemonList: [
-      {
-        id: 1,
-        name: "Bulbasaur",
-        types: [{ type: "poison" }, { type: "grass" }],
-        img: "../img/Bulbasaur.png",
-        party: true,
-      },
-      {
-        id: 2,
-        name: "Ivysaur",
-        types: [{ type: "poison" }, { type: "grass" }],
-        img: "../img/Ivysaur.png",
-        party: false,
-      },
-      {
-        id: 3,
-        name: "Venusaur",
-        types: [{ type: "poison" }, { type: "grass" }],
-        img: "../img/Venusaur.png",
-        party: false,
-      },
-      {
-        id: 4,
-        name: "Charmander",
-        types: [{ type: "Fire" }],
-        img: "../img/Charmander.png",
-        party: false,
-      },
-      {
-        id: 5,
-        name: "Charmeleon",
-        types: [{ type: "Fire" }],
-        img: "../img/Charmeleon.png",
-        party: false,
-      },
-      {
-        id: 6,
-        name: "Charizard",
-        types: [{ type: "Fire" }, { type: "Flying" }],
-        img: "../img/Charizard.png",
-        party: true,
-      },
-    ],
+    pokemonList: [],
+    numberReq: 0,
+  };
+
+  hasMore = () => {
+    console.log(this.numberGot < 151);
+    return this.numberReq < 151;
+  };
+
+  loadPokemon = () => {
+    const url = "https://pokeapi.co/api/v2/pokemon/";
+    //https://pokeapi.co/api/v2/pokemon/
+    let i = this.state.numberReq + 1;
+    let max = i + 12;
+
+    while (i < max && i < 152) {
+      console.log(i);
+      axios.get(url + i.toString()).then((res) => {
+        this.setState({
+          pokemonList: [...this.state.pokemonList, res.data].sort(
+            (a, b) => a.id - b.id
+          ),
+          numberReq: this.state.numberReq,
+        });
+      });
+      this.setState({
+        pokemonList: this.state.pokemonList,
+        numberReq: i,
+      });
+      i = i + 1;
+    }
+  };
+
+  componentDidMount() {
+    this.loadPokemon();
+  }
+
+  toggleParty = (id) => {
+    this.setState({
+      pokemonList: this.state.pokemonList.map((pokemon) => {
+        if (pokemon.id === id) {
+          pokemon.party = !pokemon.party;
+        }
+        return pokemon;
+      }),
+    });
   };
 
   render() {
@@ -59,7 +62,12 @@ class App extends React.Component {
         <div className="App">
           <div className="container" style={containerStyle}>
             <Header />
-            <PokemonList pokemonList={this.state.pokemonList} />
+            <PokemonList
+              loadPokemon={this.loadPokemon}
+              hasMore={this.hasMore}
+              pokemonList={this.state.pokemonList}
+              toggleParty={this.toggleParty}
+            />
           </div>
         </div>
       </Router>
@@ -69,10 +77,11 @@ class App extends React.Component {
 
 const containerStyle = {
   position: "relative",
-  width: "1440px",
-  height: "1024px",
-
+  margin: "auto",
+  width: "100%",
+  minWidth: "1000px",
   background: "#F4F4F4",
+  float: "center",
 };
 
 export default App;

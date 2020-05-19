@@ -10,13 +10,16 @@ function Header() {
     <header style={headerStyle}>
       {/*Not sure if this is better as a div or image*/}
       <div style={jmLogoStyle}></div>
-      <Link to="/" style={{ ...linkStyle, ...pokedexLinkStyle }}>
-        POKEDEX
-      </Link>
-      {/*These should be opacity 0.6/1 based on the page selected*/}
-      <Link to="/party" style={{ ...linkStyle, ...partyLinkStyle }}>
-        PARTY
-      </Link>
+      <div>
+        {/*fix positioning so it doesn't spread*/}
+        <Link to="/" style={{ ...linkStyle, ...pokedexLinkStyle }}>
+          POKEDEX
+        </Link>
+        {/*These should be opacity 0.6/1 based on the page selected*/}
+        <Link to="/party" style={{ ...linkStyle, ...partyLinkStyle }}>
+          PARTY
+        </Link>
+      </div>
 
       <svg
         style={circleStyle}
@@ -43,7 +46,7 @@ const circleStyle = {
   position: "absolute",
   width: "56px",
   height: "56px",
-  left: "1320px",
+  right: "5%",
   top: "12px",
 };
 
@@ -51,7 +54,7 @@ const ashStyle = {
   position: "absolute",
   width: "56px",
   height: "56px",
-  left: "1320px",
+  right: "5%",
   top: "12px",
   background: `url(${ash})`,
   backgroundSize: "56px 56px",
@@ -70,7 +73,7 @@ const jmLogoStyle = {
 
 const headerStyle = {
   position: "relative",
-  width: "1440px",
+  width: "100%",
   height: "80px",
   left: "0px",
   top: "0px",
@@ -80,13 +83,13 @@ const headerStyle = {
 
 const pokedexLinkStyle = {
   position: "absolute",
-  left: "1077px",
+  right: "15%",
   top: "34px",
 };
 
 const partyLinkStyle = {
   position: "absolute",
-  left: "1210px",
+  right: "25%",
 };
 
 const linkStyle = {
