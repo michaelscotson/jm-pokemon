@@ -2,9 +2,77 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import pokeBall from "./pokeball.png";
-import plusCircle from "./pluscircle.png";
+import cross from "./cross.png";
 
 class Pokemon extends Component {
+  getTypeColour = (entry) => {
+    let type = entry["type"]["name"];
+    let backgroundColor = "#000000";
+    switch (type) {
+      case "bug":
+        backgroundColor = "#A8B820";
+        break;
+      case "dark":
+        backgroundColor = "#705848";
+        break;
+      case "dragon":
+        backgroundColor = "#7038F8";
+        break;
+      case "electric":
+        backgroundColor = "#F8D030	";
+        break;
+
+      case "fighting":
+        backgroundColor = "#C03028";
+        break;
+      case "fire":
+        backgroundColor = "#F08030";
+        break;
+      case "flying":
+        backgroundColor = "#A890F0	";
+        break;
+      case "ghost":
+        backgroundColor = "#705898";
+        break;
+      case "grass":
+        backgroundColor = "#78C850";
+        break;
+      case "ground":
+        backgroundColor = "#E0C068	";
+        break;
+      case "ice":
+        backgroundColor = "#98D8D8	";
+        break;
+      case "normal":
+        backgroundColor = "#A8A878	";
+        break;
+      case "poison":
+        backgroundColor = "#A040A0";
+        break;
+      case "psychic":
+        backgroundColor = "#F85888";
+        break;
+      case "rock":
+        backgroundColor = "#B8A038	";
+        break;
+      case "steel":
+        backgroundColor = "#B8B8D0	";
+        break;
+      case "water":
+        backgroundColor = "#6890F0	";
+        break;
+      case "fairy":
+        backgroundColor = "EE99AC	";
+        break;
+      default:
+        backgroundColor = "#000000";
+        break;
+    }
+
+    return {
+      background: backgroundColor,
+    };
+  };
   deletePokemon = (show) => {
     if (!show) {
       return {
@@ -17,6 +85,7 @@ class Pokemon extends Component {
       left: "90px",
       height: "20px",
       width: "20px",
+      textAlign: "center",
       background: "#F8F8F8",
       border: "1px solid #FFFFFF",
       boxSizing: "border-box",
@@ -50,7 +119,7 @@ class Pokemon extends Component {
     if (this.props.pokemon == null) {
       return (
         <div style={pokemonStyle}>
-          <img src={pokeBall} style={pokeballImgStyle}></img>
+          <img src={pokeBall} style={pokeballImgStyle} alt=""></img>
           <div style={this.pokemonLowerBoxStyle(false)}></div>
           <svg
             style={plusCircleStyle}
@@ -138,10 +207,11 @@ class Pokemon extends Component {
         </div>
       );
     }
-    const { id, name, types, sprites } = this.props.pokemon;
+    const { id, name, types, sprites, party } = this.props.pokemon;
     return (
       <div
         style={pokemonStyle}
+        className="cursorChange"
         onClick={this.props.addToParty.bind(this, this.props.pokemon)}
       >
         <svg
@@ -161,8 +231,12 @@ class Pokemon extends Component {
           />
         </svg>
 
-        <img src={sprites["front_default"]} style={pokemonImgStyle}></img>
-        <div style={this.pokemonLowerBoxStyle(this.props.pokemon.party)}></div>
+        <img
+          alt={"Image of " + name}
+          src={sprites["front_default"]}
+          style={pokemonImgStyle}
+        ></img>
+        <div style={this.pokemonLowerBoxStyle(party)}></div>
         <div style={pokemonNumberBox}></div>
         <p style={pokemonNumberStyle}>
           #{id < 10 ? "00" : id < 100 ? "0" : ""}
@@ -172,51 +246,77 @@ class Pokemon extends Component {
         <p style={pokemonNameStyle}>{name}</p>
         <div style={pokemonTypeContainerStyle}>
           {types.map((entry) => (
-            <div key={entry["type"]["name"]} style={pokemonTypeStyle}>
-              <p>{entry["type"]["name"]}</p>
+            <div
+              key={entry["type"]["name"]}
+              style={{ ...pokemonTypeStyle, ...this.getTypeColour(entry) }}
+            >
+              <p style={pokemonTypeTextStyle}>{entry["type"]["name"]}</p>
             </div>
           ))}
         </div>
         <div
           style={this.deletePokemon(this.props.partyPokemon)}
           onClick={this.props.deletePokemon.bind(this, this.props.pokemon)}
+          className="cursorChange"
         >
-          <h4>X</h4>
+          <img alt="delete pokemon" style={crossStyle} src={cross} />
         </div>
       </div>
     );
   }
 }
 
-const plusCircleStyle = {
-  position: "absolute",
-  left: "15%",
-  bottom: "0.0%",
+const crossStyle = {
+  marginBottom: "4px",
 };
 
-const pokemonTypeContainerStyle = {
-  display: "flex",
+const plusCircleStyle = {
   position: "absolute",
-  top: "86.28%",
-  bottom: "5.78%",
-  left: "17.175%",
-  right: "17.175%",
-  width: "130px",
-  height: "22px",
-  alignItems: "center",
+  left: "17%",
+  bottom: "-10.0%",
+};
 
-  justifyContent: "center",
+const pokemonTypeTextStyle = {
+  textTransform: "capitalize",
+  fontFamily: "Work Sans",
+  fontStyle: "normal",
+  fontWeight: "bold",
+  fontSize: "12px",
+  lineHeight: "10px",
+  color: "#FFFFFF",
+  flex: "none",
+  order: "0",
+  alignSelf: "center",
+
+  margin: "auto",
+
+  textAlign: "center",
 };
 
 const pokemonTypeStyle = {
   display: "flex",
   flexDirection: "row",
-  padding: "4px 18px",
-  margin: "0 4 0 4",
-  background: "#ABB642",
+  padding: "0",
+  height: "22px",
+  width: "58px",
   borderRadius: "4px",
-  width: "30%",
-  margin: "0px",
+  margin: "0px 5px 0px 5px",
+
+  textAlign: "center",
+};
+
+const pokemonTypeContainerStyle = {
+  display: "flex",
+  position: "absolute",
+  height: "10px",
+  top: "86.28%",
+  bottom: "5.78%",
+  left: "17.175%",
+  right: "17.175%",
+  width: "130px",
+  alignItems: "center",
+  textAlign: "center",
+  justifyContent: "center",
 };
 
 const pokemonStyle = {
@@ -293,7 +393,7 @@ const pokemonNameStyle = {
   top: "67.87%",
   bottom: "18.77%",
   textTransform: "capitalize",
-  fontFamily: "Moret, serif",
+  fontFamily: "Tinos, serif",
   fontStyle: "normal",
   fontWeight: "normal",
   fontSize: "32px",

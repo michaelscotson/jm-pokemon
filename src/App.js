@@ -23,7 +23,7 @@ class App extends React.Component {
   };
 
   hasMore = () => {
-    console.log(this.numberGot < 151);
+    console.log(this.numberReq < 151);
     return this.numberReq < 151;
   };
 
@@ -87,15 +87,13 @@ class App extends React.Component {
     let i = 1;
     while (i <= 6) {
       let entry = this.state.party[i];
-      if (entry == null) {
-        console.log(entry);
-      } else if (entry.id === id) {
+      if (entry != null && entry.id === id) {
         let newParty = { ...this.state.party, [i]: null };
-        let newPokemonList = this.state.pokemonList.map((pokemon) => {
-          if (pokemon.id === id) {
-            pokemon.party = false;
+        let newPokemonList = this.state.pokemonList.map((newPokemon) => {
+          if (newPokemon.id === id) {
+            newPokemon.party = false;
           }
-          return pokemon;
+          return newPokemon;
         });
         this.setState({
           party: newParty,
@@ -129,6 +127,7 @@ class App extends React.Component {
 
     //Create a copy so name can be changed only in the party
     let newPartyMemberCopy = JSON.parse(JSON.stringify(newPartyMember));
+    newPartyMemberCopy.party = true;
 
     //Once found add pokemon
     i = 1;

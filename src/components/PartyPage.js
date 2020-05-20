@@ -72,7 +72,7 @@ const columnTextStyle = {
   left: "35%",
   top: "39%",
 
-  fontFamily: "Moret",
+  fontFamily: "Tinos",
   fontStyle: "normal",
   fontWeight: "bold",
   fontSize: "30px",

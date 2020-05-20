@@ -24,6 +24,7 @@ class PokemonList extends Component {
             scrollThreshold={0.98}
             loader={<h4>Loading...</h4>}
             scrollableTarget="scrollableDiv"
+            children={this.props.pokemonList}
           >
             {this.props.pokemonList.map((pokemon) => (
               <Pokemon
@@ -73,7 +74,7 @@ const navCircleContent = {
 };
 
 const navLinkStyle = {
-  fontFamily: "Moret",
+  fontFamily: "Tinos",
   fontStyle: "normal",
   fontWeight: "bold",
   fontSize: "16px",
@@ -104,7 +105,7 @@ const teamChooseStyle = {
   left: "25%",
   top: "25%",
 
-  fontFamily: "Moret",
+  fontFamily: "tinos",
   fontStyle: "normal",
   fontWeight: "bold",
   fontSize: "30px",
