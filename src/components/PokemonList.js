@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import Pokemon from "./Pokemon";
+import PartyPokemon from "./PartyPokemon";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import navCircle from "./navCircle.png";
+
+import { Link } from "react-router-dom";
 
 class PokemonList extends Component {
+  ignore = (pokemon) => {};
   render() {
     return (
       <div>
@@ -16,7 +21,7 @@ class PokemonList extends Component {
             dataLength={this.props.pokemonList.length}
             next={this.props.loadPokemon}
             hasMore={this.props.hasMore}
-            scrollThreshold={1}
+            scrollThreshold={0.98}
             loader={<h4>Loading...</h4>}
             scrollableTarget="scrollableDiv"
           >
@@ -24,19 +29,36 @@ class PokemonList extends Component {
               <Pokemon
                 key={pokemon.id}
                 pokemon={pokemon}
-                toggleParty={this.props.toggleParty}
+                addToParty={this.props.addToParty}
+                deletePokemon={this.ignore}
+                partyPokemon={false}
               />
             ))}
           </InfiniteScroll>
-          {/*<div>
-              {this.props.pokemonList.map((pokemon) => (
-                <Pokemon
-                  key={pokemon.id}
-                  pokemon={pokemon}
-                  toggleParty={this.props.toggleParty}
-                />
-              ))}</div>*/}
-          <div style={rightColumnStyle}>WAH WAH WAH</div>
+          <div style={partyColumnStyle}>
+            {Object.keys(this.props.party).map((partyKey, i) => (
+              <PartyPokemon key={i} pokemon={this.props.party[partyKey]} />
+            ))}
+            <Link to="/party" style={navCircleStyle}>
+              <div style={navCircleContent}>
+                <h3 style={navLinkStyle}>Party</h3>
+                <svg
+                  width="27"
+                  height="10"
+                  viewBox="0 0 27 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M24.1108 4.20025L20.9538 1.0433L21.9938 0.0032959L26.4062 4.41564C26.6934 4.70283 26.6934 5.16846 26.4062 5.45564L21.9938 9.86799L20.9538 8.82799L24.1108 5.67103L0.883057 5.67104L0.883057 4.20026L24.1108 4.20025Z"
+                    fill="white"
+                  />
+                </svg>
+              </div>
+            </Link>
+          </div>
         </div>
         <div style={loadedStyle}>
           <h1>{this.props.pokemonList.length}/151</h1>
@@ -45,6 +67,35 @@ class PokemonList extends Component {
     );
   }
 }
+const navCircleContent = {
+  textAlign: "center",
+  verticalAlign: "middle",
+};
+
+const navLinkStyle = {
+  fontFamily: "Moret",
+  fontStyle: "normal",
+  fontWeight: "bold",
+  fontSize: "16px",
+
+  color: "#FFFFFF",
+};
+
+const navCircleStyle = {
+  textDecoration: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "60px",
+  height: "60px",
+  marginTop: "6px",
+  borderRadius: "50%",
+  background: "rgba(16, 123, 106, 0.6)",
+  border: "1px solid #FFFFFF",
+  boxSizing: "border-box",
+  boxShadow:
+    "10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 4px rgba(255, 255, 255, 0.2)",
+};
 
 const teamChooseStyle = {
   position: "absolute",
@@ -77,7 +128,7 @@ const container = {
 };
 
 const leftColumnStyle = {
-  width: "20%", //FIND BETTER NUMBER!!!!!
+  width: "25%", //FIND BETTER NUMBER!!!!!
   height: "100%",
   float: "left",
   position: "sticky",
@@ -85,23 +136,24 @@ const leftColumnStyle = {
 };
 
 const pokemonColumnStyle = {
-  width: "45%",
+  width: "50%",
   height: "90%",
   float: "left",
-  minWidth: "600px",
+  minWidth: "400px",
   overflowY: "hidden",
 };
 
-const rightColumnStyle = {
-  width: "20%", //FIND BETTER NUMBER!!!!!
+const partyColumnStyle = {
+  width: "25%", //FIND BETTER NUMBER!!!!!
+  top: "53px",
   height: "100%",
   float: "left",
   position: "sticky",
-  top: "0",
 };
 
 PokemonList.propTypes = {
   pokemonList: PropTypes.array.isRequired,
+  party: PropTypes.object.isRequired,
 };
 
 export default PokemonList;

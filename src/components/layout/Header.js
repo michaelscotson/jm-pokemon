@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import jmLogo from "./Josephmark.png";
 import ash from "./ash.png";
-import circle from "./circle.png";
 
 function Header() {
   return (
@@ -32,12 +31,6 @@ function Header() {
         <circle cx="28" cy="28" r="28" fill="#F4F4F4" />
       </svg>
       <div style={ashStyle}></div>
-      {/*<Link style={linkStyle} to="/">
-        Home
-      </Link>
-      <Link style={linkStyle} to="/about">
-        About
-  </Link>*/}
     </header>
   );
 }
@@ -83,13 +76,14 @@ const headerStyle = {
 
 const pokedexLinkStyle = {
   position: "absolute",
-  right: "15%",
+  right: "600px",
   top: "34px",
 };
 
 const partyLinkStyle = {
   position: "absolute",
-  right: "25%",
+  right: "500px",
+  top: "34px",
 };
 
 const linkStyle = {

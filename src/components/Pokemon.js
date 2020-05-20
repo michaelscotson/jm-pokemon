@@ -1,31 +1,149 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 
-export class Pokemon extends Component {
-  pokemonLowerBoxStyle = () => {
+import pokeBall from "./pokeball.png";
+import plusCircle from "./pluscircle.png";
+
+class Pokemon extends Component {
+  deletePokemon = (show) => {
+    if (!show) {
+      return {
+        display: "none",
+      };
+    }
+    return {
+      position: "absolute",
+      bottom: "-7%",
+      left: "90px",
+      height: "20px",
+      width: "20px",
+      background: "#F8F8F8",
+      border: "1px solid #FFFFFF",
+      boxSizing: "border-box",
+      borderRadius: "50%",
+      boxShadow:
+        "10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 4px rgba(255, 255, 255, 0.2)",
+    };
+  };
+
+  pokemonLowerBoxStyle = (highlighted) => {
     return {
       position: " absolute",
       left: "5%",
       right: "5%",
       top: " 31.41%",
       bottom: " -3.61%",
-
+      display: "flex",
       background: "#red",
       boxSizing: " border-box",
       boxShadow:
         " 10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 4px rgba(255, 255, 255, 0.2)",
       borderRadius: "10px",
       zIndex: "-1",
-      border: this.props.pokemon.party
+      border: highlighted
         ? "4px solid rgba(16, 123, 106, 0.4)"
         : "2px solid #FFFFFF",
     };
   };
 
   render() {
-    const { id, name, types, sprites, party } = this.props.pokemon;
+    if (this.props.pokemon == null) {
+      return (
+        <div style={pokemonStyle}>
+          <img src={pokeBall} style={pokeballImgStyle}></img>
+          <div style={this.pokemonLowerBoxStyle(false)}></div>
+          <svg
+            style={plusCircleStyle}
+            width="152"
+            height="151"
+            viewBox="0 0 152 151"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g filter="url(#filter0_dd)">
+              <circle
+                cx="67.9998"
+                cy="67.033"
+                r="37.5"
+                transform="rotate(45 67.9998 67.033)"
+                fill="#F8F8F8"
+              />
+              <circle
+                cx="67.9998"
+                cy="67.033"
+                r="37"
+                transform="rotate(45 67.9998 67.033)"
+                stroke="white"
+              />
+            </g>
+            <path
+              d="M67.9998 59.8928V75.1072M75.6069 67.5H60.3926"
+              stroke="#333333"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <defs>
+              <filter
+                id="filter0_dd"
+                x="0.966736"
+                y="0"
+                width="150.066"
+                height="150.066"
+                filterUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
+                <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                />
+                <feOffset dx="10" dy="10" />
+                <feGaussianBlur stdDeviation="10" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"
+                />
+                <feBlend
+                  mode="normal"
+                  in2="BackgroundImageFix"
+                  result="effect1_dropShadow"
+                />
+                <feColorMatrix
+                  in="SourceAlpha"
+                  type="matrix"
+                  values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                />
+                <feOffset dx="-10" dy="-10" />
+                <feGaussianBlur stdDeviation="2" />
+                <feColorMatrix
+                  type="matrix"
+                  values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.2 0"
+                />
+                <feBlend
+                  mode="normal"
+                  in2="effect1_dropShadow"
+                  result="effect2_dropShadow"
+                />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="effect2_dropShadow"
+                  result="shape"
+                />
+              </filter>
+            </defs>
+          </svg>
+        </div>
+      );
+    }
+    const { id, name, types, sprites } = this.props.pokemon;
     return (
-      <div style={pokemonStyle} onClick={this.props.toggleParty.bind(this, id)}>
+      <div
+        style={pokemonStyle}
+        onClick={this.props.addToParty.bind(this, this.props.pokemon)}
+      >
         <svg
           style={semicircleStyle}
           width="94"
@@ -44,7 +162,7 @@ export class Pokemon extends Component {
         </svg>
 
         <img src={sprites["front_default"]} style={pokemonImgStyle}></img>
-        <div style={this.pokemonLowerBoxStyle()}></div>
+        <div style={this.pokemonLowerBoxStyle(this.props.pokemon.party)}></div>
         <div style={pokemonNumberBox}></div>
         <p style={pokemonNumberStyle}>
           #{id < 10 ? "00" : id < 100 ? "0" : ""}
@@ -52,15 +170,60 @@ export class Pokemon extends Component {
         </p>
         {/*Install moret font or find another similar*/}
         <p style={pokemonNameStyle}>{name}</p>
+        <div style={pokemonTypeContainerStyle}>
+          {types.map((entry) => (
+            <div key={entry["type"]["name"]} style={pokemonTypeStyle}>
+              <p>{entry["type"]["name"]}</p>
+            </div>
+          ))}
+        </div>
+        <div
+          style={this.deletePokemon(this.props.partyPokemon)}
+          onClick={this.props.deletePokemon.bind(this, this.props.pokemon)}
+        >
+          <h4>X</h4>
+        </div>
       </div>
     );
   }
 }
 
+const plusCircleStyle = {
+  position: "absolute",
+  left: "15%",
+  bottom: "0.0%",
+};
+
+const pokemonTypeContainerStyle = {
+  display: "flex",
+  position: "absolute",
+  top: "86.28%",
+  bottom: "5.78%",
+  left: "17.175%",
+  right: "17.175%",
+  width: "130px",
+  height: "22px",
+  alignItems: "center",
+
+  justifyContent: "center",
+};
+
+const pokemonTypeStyle = {
+  display: "flex",
+  flexDirection: "row",
+  padding: "4px 18px",
+  margin: "0 4 0 4",
+  background: "#ABB642",
+  borderRadius: "4px",
+  width: "30%",
+  margin: "0px",
+};
+
 const pokemonStyle = {
   position: "relative",
   width: "198px",
-  height: "277px",
+  height: "247px",
+  marginTop: "20px",
   float: "left",
   zIndex: "2",
 };
@@ -72,6 +235,17 @@ const semicircleStyle = {
   top: "31.41%",
   opacity: "1",
   zIndex: "2",
+};
+
+const pokeballImgStyle = {
+  position: "absolute",
+  left: "26.26%",
+  right: "26.26%",
+  top: "14.0%",
+  opacity: ".2",
+  zIndex: "4",
+  width: "98px",
+  height: "98px",
 };
 
 const pokemonImgStyle = {
@@ -130,7 +304,7 @@ const pokemonNameStyle = {
 };
 
 Pokemon.propTypes = {
-  pokemon: PropTypes.object.isRequired,
+  partyPokemon: PropTypes.bool.isRequired,
 };
 
 export default Pokemon;
