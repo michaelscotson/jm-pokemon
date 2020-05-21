@@ -32,13 +32,17 @@ class PokemonList extends Component {
                 pokemon={pokemon}
                 addToParty={this.props.addToParty}
                 deletePokemon={this.ignore}
-                partyPokemon={false}
+                partyPagePokemon={false}
+                changePokemonName={this.ignore}
               />
             ))}
           </InfiniteScroll>
           <div style={partyColumnStyle}>
-            {Object.keys(this.props.party).map((partyKey, i) => (
-              <PartyPokemon key={i} pokemon={this.props.party[partyKey]} />
+            {Object.keys(this.props.partyList).map((partyListKey, i) => (
+              <PartyPokemon
+                key={i}
+                pokemon={this.props.partyList[partyListKey]}
+              />
             ))}
             <Link to="/party" style={navCircleStyle}>
               <div style={navCircleContent}>
@@ -137,7 +141,7 @@ const leftColumnStyle = {
 };
 
 const pokemonColumnStyle = {
-  width: "50%",
+  width: "40%",
   height: "90%",
   float: "left",
   minWidth: "400px",
@@ -154,7 +158,7 @@ const partyColumnStyle = {
 
 PokemonList.propTypes = {
   pokemonList: PropTypes.array.isRequired,
-  party: PropTypes.object.isRequired,
+  partyList: PropTypes.object.isRequired,
 };
 
 export default PokemonList;

@@ -12,13 +12,13 @@ class App extends React.Component {
   state = {
     pokemonList: [],
     numberReq: 0,
-    party: {
+    partyList: {
+      0: null,
       1: null,
       2: null,
       3: null,
       4: null,
       5: null,
-      6: null,
     },
   };
 
@@ -35,25 +35,31 @@ class App extends React.Component {
     while (i < max && i < 152) {
       console.log(i);
       axios.get(url + i.toString()).then((res) => {
-        let newPokemonList = [...this.state.pokemonList, res.data].sort(
+        let newPokemon = res.data;
+
+        //Check if new Pokemon is already in party
+        let slotNumber = 0;
+        while (slotNumber < 6) {
+          let pokemonInParty = this.state.partyList[slotNumber];
+          if (pokemonInParty != null && newPokemon.id === pokemonInParty.id) {
+            newPokemon.partyMember = true;
+          }
+          slotNumber += 1;
+        }
+
+        let newPokemonList = [...this.state.pokemonList, newPokemon].sort(
           (a, b) => a.id - b.id
         );
-        let newNumberReq = this.state.numberReq;
 
         this.setState({
           pokemonList: newPokemonList,
-          numberReq: newNumberReq,
         });
-
-        localStorage.set("pokemonList", newPokemonList);
-        localStorage.set("numberReq", newNumberReq);
       });
       let newNumberReq = i;
 
       this.setState({
         numberReq: newNumberReq,
       });
-      localStorage.set("numberReq", newNumberReq);
       i = i + 1;
     }
   };
@@ -61,15 +67,13 @@ class App extends React.Component {
   componentDidMount() {
     this.setState(
       {
-        pokemonList: localStorage.get("pokemonList") || [],
-        numberReq: localStorage.get("numberReq") || 0,
-        party: localStorage.get("party") || {
-          1: null, //change to 0
+        partyList: localStorage.get("partyList") || {
+          0: null,
+          1: null,
           2: null,
           3: null,
           4: null,
           5: null,
-          6: null,
         },
       },
       () => {
@@ -80,75 +84,99 @@ class App extends React.Component {
     );
   }
 
+  changePokemonName = (e, pokemon) => {
+    //find slotNumber
+    let slotNumber = 0;
+    while (slotNumber < 6) {
+      let entry = this.state.partyList[slotNumber];
+      if (entry != null && pokemon.id === entry.id) {
+        break;
+      }
+      slotNumber += 1;
+    }
+
+    console.log(slotNumber);
+
+    //Create a copy and change name
+    let newPokemonCopy = JSON.parse(JSON.stringify(pokemon));
+    newPokemonCopy.name = e.target.value;
+
+    let newPartyList = {
+      ...this.state.partyList,
+      [slotNumber]: newPokemonCopy,
+    };
+    this.setState({
+      partyList: newPartyList,
+    });
+  };
+
   deletePokemon = (pokemonToDelete) => {
     console.log("Clicked!");
     //If null found add pokemon, if id already exists, return
     let id = pokemonToDelete.id;
-    let i = 1;
-    while (i <= 6) {
-      let entry = this.state.party[i];
+    let i = 0;
+    while (i < 6) {
+      let entry = this.state.partyList[i];
       if (entry != null && entry.id === id) {
-        let newParty = { ...this.state.party, [i]: null };
+        let newPartyList = { ...this.state.partyList, [i]: null };
         let newPokemonList = this.state.pokemonList.map((newPokemon) => {
           if (newPokemon.id === id) {
-            newPokemon.party = false;
+            newPokemon.partyMember = false;
           }
           return newPokemon;
         });
         this.setState({
-          party: newParty,
+          partyList: newPartyList,
           pokemonList: newPokemonList,
         });
-        localStorage.set("party", newParty);
-        localStorage.set("pokemonList", newPokemonList);
+        localStorage.set("partyList", newPartyList);
         return;
       }
       i = i + 1;
     }
   };
 
-  addToParty = (newPartyMember) => {
-    //If no null values, party is full, so return
-    if (!Object.values(this.state.party).includes(null)) {
+  addToParty = (newPokemon) => {
+    //If no null values, partyList is full, so return
+    if (!Object.values(this.state.partyList).includes(null)) {
       return;
     }
 
     //check to see if it already exists
-    let i = 1;
-    while (i <= 6) {
-      let entry = this.state.party[i];
+    let i = 0;
+    while (i < 6) {
+      let entry = this.state.partyList[i];
       if (entry != null) {
-        if (newPartyMember.id === entry.id) {
+        if (newPokemon.id === entry.id) {
           return;
         }
       }
-      i = i + 1;
+      i += 1;
     }
 
-    //Create a copy so name can be changed only in the party
-    let newPartyMemberCopy = JSON.parse(JSON.stringify(newPartyMember));
-    newPartyMemberCopy.party = true;
+    //Create a copy so name can be changed only in the partyList
+    let newPokemonCopy = JSON.parse(JSON.stringify(newPokemon));
+    newPokemonCopy.partyMember = true;
 
     //Once found add pokemon
-    i = 1;
-    while (i <= 6) {
-      let entry = this.state.party[i];
+    i = 0;
+    while (i < 6) {
+      let entry = this.state.partyList[i];
 
       if (entry === null) {
-        let newParty = { ...this.state.party, [i]: newPartyMemberCopy };
+        let newPartyList = { ...this.state.partyList, [i]: newPokemonCopy };
         let newPokemonList = this.state.pokemonList.map((pokemon) => {
-          if (pokemon.id === newPartyMemberCopy.id) {
-            pokemon.party = true;
+          if (pokemon.id === newPokemonCopy.id) {
+            pokemon.partyMember = true;
           }
           return pokemon;
         });
         this.setState({
-          party: newParty,
+          partyList: newPartyList,
           pokemonList: newPokemonList,
         });
 
-        localStorage.set("party", newParty);
-        localStorage.set("pokemonList", newPokemonList);
+        localStorage.set("partyList", newPartyList);
 
         return;
       }
@@ -173,7 +201,7 @@ class App extends React.Component {
                     pokemonList={this.state.pokemonList}
                     addToParty={this.addToParty}
                     deletePokemon={this.deletePokemon}
-                    party={this.state.party}
+                    partyList={this.state.partyList}
                   />
                 </React.Fragment>
               )}
@@ -183,8 +211,9 @@ class App extends React.Component {
               render={(props) => (
                 <React.Fragment>
                   <PartyPage
-                    partyList={this.state.party}
+                    partyList={this.state.partyList}
                     deletePokemon={this.deletePokemon}
+                    changePokemonName={this.changePokemonName}
                   />
                 </React.Fragment>
               )}

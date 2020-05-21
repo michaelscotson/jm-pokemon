@@ -5,6 +5,22 @@ import pokeBall from "./pokeball.png";
 import cross from "./cross.png";
 
 class Pokemon extends Component {
+  getPokemonName = (name, partyPagePokemon) => {
+    if (partyPagePokemon) {
+      return (
+        <input
+          type="text"
+          value={name}
+          className="removeBorder"
+          style={{ ...inputResetStyle, ...pokemonNameStyle }}
+          onChange={(e) => this.props.changePokemonName(e, this.props.pokemon)}
+        ></input>
+      );
+    }
+
+    return <p style={pokemonNameStyle}>{name}</p>;
+  };
+
   getTypeColour = (entry) => {
     let type = entry["type"]["name"];
     let backgroundColor = "#000000";
@@ -19,7 +35,7 @@ class Pokemon extends Component {
         backgroundColor = "#7038F8";
         break;
       case "electric":
-        backgroundColor = "#F8D030	";
+        backgroundColor = "#F8D030";
         break;
 
       case "fighting":
@@ -29,7 +45,7 @@ class Pokemon extends Component {
         backgroundColor = "#F08030";
         break;
       case "flying":
-        backgroundColor = "#A890F0	";
+        backgroundColor = "#A890F0";
         break;
       case "ghost":
         backgroundColor = "#705898";
@@ -38,13 +54,13 @@ class Pokemon extends Component {
         backgroundColor = "#78C850";
         break;
       case "ground":
-        backgroundColor = "#E0C068	";
+        backgroundColor = "#E0C068";
         break;
       case "ice":
-        backgroundColor = "#98D8D8	";
+        backgroundColor = "#98D8D8";
         break;
       case "normal":
-        backgroundColor = "#A8A878	";
+        backgroundColor = "#A8A878";
         break;
       case "poison":
         backgroundColor = "#A040A0";
@@ -53,16 +69,16 @@ class Pokemon extends Component {
         backgroundColor = "#F85888";
         break;
       case "rock":
-        backgroundColor = "#B8A038	";
+        backgroundColor = "#B8A038";
         break;
       case "steel":
-        backgroundColor = "#B8B8D0	";
+        backgroundColor = "#B8B8D0";
         break;
       case "water":
-        backgroundColor = "#6890F0	";
+        backgroundColor = "#6890F0";
         break;
       case "fairy":
-        backgroundColor = "EE99AC	";
+        backgroundColor = "#EE99AC";
         break;
       default:
         backgroundColor = "#000000";
@@ -207,7 +223,7 @@ class Pokemon extends Component {
         </div>
       );
     }
-    const { id, name, types, sprites, party } = this.props.pokemon;
+    const { id, name, types, sprites, partyMember } = this.props.pokemon;
     return (
       <div
         style={pokemonStyle}
@@ -236,14 +252,14 @@ class Pokemon extends Component {
           src={sprites["front_default"]}
           style={pokemonImgStyle}
         ></img>
-        <div style={this.pokemonLowerBoxStyle(party)}></div>
+        <div style={this.pokemonLowerBoxStyle(partyMember)}></div>
         <div style={pokemonNumberBox}></div>
         <p style={pokemonNumberStyle}>
           #{id < 10 ? "00" : id < 100 ? "0" : ""}
           {id}
         </p>
-        {/*Install moret font or find another similar*/}
-        <p style={pokemonNameStyle}>{name}</p>
+        {this.getPokemonName(name, this.props.partyPagePokemon)}
+
         <div style={pokemonTypeContainerStyle}>
           {types.map((entry) => (
             <div
@@ -255,7 +271,7 @@ class Pokemon extends Component {
           ))}
         </div>
         <div
-          style={this.deletePokemon(this.props.partyPokemon)}
+          style={this.deletePokemon(this.props.partyPagePokemon)}
           onClick={this.props.deletePokemon.bind(this, this.props.pokemon)}
           className="cursorChange"
         >
@@ -386,6 +402,17 @@ const pokemonNumberStyle = {
   opacity: "0.6",
 };
 
+const inputResetStyle = {
+  border: "none",
+  display: "inline",
+  padding: "none",
+  margin: "0",
+  marginRight: "15px",
+  marginLeft: "10px",
+  width: "172px",
+  background: "transparent",
+};
+
 const pokemonNameStyle = {
   position: "absolute",
   left: "2.02%",
@@ -404,7 +431,7 @@ const pokemonNameStyle = {
 };
 
 Pokemon.propTypes = {
-  partyPokemon: PropTypes.bool.isRequired,
+  partyPagePokemon: PropTypes.bool.isRequired,
 };
 
 export default Pokemon;

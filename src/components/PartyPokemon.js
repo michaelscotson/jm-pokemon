@@ -45,6 +45,4 @@ class PartyPokemon extends Component {
   }
 }
 
-const partyimgStyle = {};
-
 export default PartyPokemon;
