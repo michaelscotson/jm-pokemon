@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./components/layout/Header";
-import PokemonList from "./components/PokemonList";
+import Pokedex from "./components/Pokedex";
 import PartyPage from "./components/PartyPage";
-import more_arrow from "./more_arrow.svg";
 import "./App.css";
 import axios from "axios";
 import localStorage from "local-storage";
+import pikachu from "./components/pikachu.png";
 
 class App extends React.Component {
   state = {
@@ -20,10 +20,15 @@ class App extends React.Component {
       4: null,
       5: null,
     },
+    isMobile: false,
+  };
+
+  handleWindowResize = () => {
+    console.log(window.innerWidth);
+    this.setState({ isMobile: window.innerWidth < 800 });
   };
 
   hasMore = () => {
-    console.log(this.numberReq < 151);
     return this.numberReq < 151;
   };
 
@@ -33,11 +38,10 @@ class App extends React.Component {
     let max = i + 12;
 
     while (i < max && i < 152) {
-      console.log(i);
       axios.get(url + i.toString()).then((res) => {
         let newPokemon = res.data;
 
-        //Check if new Pokemon is already in party
+        //Set partyMember to true if pokemon already in list
         let slotNumber = 0;
         while (slotNumber < 6) {
           let pokemonInParty = this.state.partyList[slotNumber];
@@ -65,6 +69,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    window.addEventListener("resize", this.handleWindowResize);
+
+    this.handleWindowResize();
     this.setState(
       {
         partyList: localStorage.get("partyList") || {
@@ -84,6 +91,10 @@ class App extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.throttledHandleWindowResize);
+  }
+
   changePokemonName = (e, pokemon) => {
     //find slotNumber
     let slotNumber = 0;
@@ -95,8 +106,6 @@ class App extends React.Component {
       slotNumber += 1;
     }
 
-    console.log(slotNumber);
-
     //Create a copy and change name
     let newPokemonCopy = JSON.parse(JSON.stringify(pokemon));
     newPokemonCopy.name = e.target.value;
@@ -105,13 +114,15 @@ class App extends React.Component {
       ...this.state.partyList,
       [slotNumber]: newPokemonCopy,
     };
+
     this.setState({
       partyList: newPartyList,
     });
+
+    localStorage.set("partyList", newPartyList);
   };
 
   deletePokemon = (pokemonToDelete) => {
-    console.log("Clicked!");
     //If null found add pokemon, if id already exists, return
     let id = pokemonToDelete.id;
     let i = 0;
@@ -184,18 +195,71 @@ class App extends React.Component {
     }
   };
 
+  containerStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        position: "relative",
+        padding: "auto",
+        width: "100%",
+        minWidth: "1000px",
+        background: "#F4F4F4",
+        float: "center",
+        minHeight: "600px",
+
+        height: "100vh",
+      };
+    }
+    return {
+      position: "relative",
+      padding: "auto",
+      width: "100%",
+      background: "#F4F4F4",
+      float: "center",
+      height: "100vh",
+    };
+  };
+
+  backgroundImageStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        position: "absolute",
+        left: "10%",
+        top: "8%",
+        width: "30%",
+        height: "auto",
+        opacity: "0.04",
+      };
+    }
+    return {
+      position: "absolute",
+      width: "100vw",
+      top: "100px",
+      left: "-50px",
+      opacity: "0.04",
+    };
+  };
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <div className="container" style={containerStyle}>
-            <Header />
+          <div
+            className="container"
+            style={this.containerStyle(this.state.isMobile)}
+          >
+            <Header isMobile={this.state.isMobile} />
+            <img
+              alt=""
+              style={this.backgroundImageStyle(this.state.isMobile)}
+              src={pikachu}
+            />
             <Route
               exact
               path="/"
               render={(props) => (
                 <React.Fragment>
-                  <PokemonList
+                  <Pokedex
+                    isMobile={this.state.isMobile}
                     loadPokemon={this.loadPokemon}
                     hasMore={this.hasMore}
                     pokemonList={this.state.pokemonList}
@@ -211,6 +275,7 @@ class App extends React.Component {
               render={(props) => (
                 <React.Fragment>
                   <PartyPage
+                    isMobile={this.state.isMobile}
                     partyList={this.state.partyList}
                     deletePokemon={this.deletePokemon}
                     changePokemonName={this.changePokemonName}
@@ -224,14 +289,5 @@ class App extends React.Component {
     );
   }
 }
-
-const containerStyle = {
-  position: "relative",
-  margin: "auto",
-  width: "100%",
-  minWidth: "1000px",
-  background: "#F4F4F4",
-  float: "center",
-};
 
 export default App;
