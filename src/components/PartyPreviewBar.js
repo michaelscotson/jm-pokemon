@@ -22,6 +22,7 @@ class PartyPreviewBar extends Component {
           marginRight: "12px",
           display: "block",
           zIndex: "10",
+          //background: "crimson",
         };
       } else {
         return {

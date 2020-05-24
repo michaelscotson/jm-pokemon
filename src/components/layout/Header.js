@@ -104,6 +104,16 @@ class Header extends Component {
     };
   };
 
+  headerContent = (isMobile) => {
+    if (!isMobile) {
+      return {
+        maxWidth: "1200px",
+        margin: "auto",
+      };
+    }
+    return {};
+  };
+
   rightHeaderContentStyle = (isMobile) => {
     if (!isMobile) {
       return {
@@ -172,8 +182,10 @@ class Header extends Component {
         height: "80px",
         left: "0px",
         top: "0px",
-        minWidth: "900px",
+        //minWidth: "900px",
         background: "#333333",
+        //maxWidth: "1200px",
+        //margin: "auto",
       };
     }
     return {

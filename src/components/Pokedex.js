@@ -10,13 +10,22 @@ import arrow from "./arrow.png";
 class Pokedex extends Component {
   ignore = (pokemon) => {};
 
-  container = (isMobile) => {
+  pokedexContainerStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "100%",
-        minWidth: "1000px",
+        //maxWidth: "100%",
+        position: "relative",
         height: "80vh",
         overflowY: "auto",
+        //paddingRight: "10%",
+        //paddingLeft: "10%",
+        margin: "auto",
+        float: "center",
+        minWidth: "850px",
+        //margin: "auto",
+        //background: "green",
+        //border: "solid",
+        //borderColor: "green",
       };
     }
     return {
@@ -30,11 +39,17 @@ class Pokedex extends Component {
   pokemonColumnStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "40%",
+        //width: "40%",
+        maxWidth: "600px",
+
         height: "90%",
         float: "left",
         minWidth: "600px",
         overflowY: "hidden",
+        // background: "pink",
+        //border: "solid",
+        //borderColor: "pink",
+        margin: "auto",
       };
     }
     return {
@@ -51,11 +66,17 @@ class Pokedex extends Component {
     if (!isMobile) {
       return {
         width: "60px",
-        top: "60px",
+        //top: "60px",
         height: "100%",
         float: "left",
         position: "sticky",
-        marginLeft: "5%",
+        paddingTop: "50px",
+        //paddingLeft: "2%",
+        //marginLeft: "5%",
+        //background: "purple",
+        //border: "solid",
+        //borderColor: "purple",
+        top: "0px",
       };
     }
     return {
@@ -194,12 +215,34 @@ class Pokedex extends Component {
       return {
         height: "50px",
         textAlign: "center",
-        width: "1100px",
+        //width: "1100px",
+
+        //border: "solid",
+        //borderColor: "orange",
+        //background: "orange",
+        margin: "auto",
       };
     }
     return {
       display: "none",
     };
+  };
+
+  pokedexMainContentStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        position: "absolute",
+        //background: "red",
+        //height: "100%",
+        //height: "80vh",
+        //border: "solid",
+        //borderColor: "red",
+        width: "820px",
+        left: "50%",
+        transform: "translateX(-50%)",
+      };
+    }
+    return {};
   };
 
   render() {
@@ -208,31 +251,36 @@ class Pokedex extends Component {
         {this.getLeftBar(this.props.isMobile, false)}
         {this.getPartyBar(this.props.isMobile, false)}
 
-        <div style={this.container(this.props.isMobile)} id="scrollableDiv">
-          {this.getLeftBar(this.props.isMobile, true)}
-          <InfiniteScroll
-            style={this.pokemonColumnStyle(this.props.isMobile)}
-            dataLength={this.props.pokemonList.length}
-            next={this.props.loadPokemon}
-            hasMore={this.props.hasMore}
-            scrollThreshold={0.98}
-            scrollableTarget="scrollableDiv"
-            children={this.props.pokemonList}
-          >
-            {this.props.pokemonList.map((pokemon) => (
-              <Pokemon
-                isMobile={this.props.isMobile}
-                key={pokemon.id}
-                pokemon={pokemon}
-                addToParty={this.props.addToParty}
-                deletePokemon={this.ignore}
-                partyPagePokemon={false}
-                changePokemonName={this.ignore}
-              />
-            ))}
-          </InfiniteScroll>
+        <div
+          style={this.pokedexContainerStyle(this.props.isMobile)}
+          id="scrollableDiv"
+        >
+          <div style={this.pokedexMainContentStyle(this.props.isMobile)}>
+            {this.getLeftBar(this.props.isMobile, true)}
+            <InfiniteScroll
+              style={this.pokemonColumnStyle(this.props.isMobile)}
+              dataLength={this.props.pokemonList.length}
+              next={this.props.loadPokemon}
+              hasMore={this.props.hasMore}
+              scrollThreshold={0.98}
+              scrollableTarget="scrollableDiv"
+              children={this.props.pokemonList}
+            >
+              {this.props.pokemonList.map((pokemon) => (
+                <Pokemon
+                  isMobile={this.props.isMobile}
+                  key={pokemon.id}
+                  pokemon={pokemon}
+                  addToParty={this.props.addToParty}
+                  deletePokemon={this.ignore}
+                  partyPagePokemon={false}
+                  changePokemonName={this.ignore}
+                />
+              ))}
+            </InfiniteScroll>
 
-          {this.getPartyBar(this.props.isMobile, true)}
+            {this.getPartyBar(this.props.isMobile, true)}
+          </div>
         </div>
         <div style={this.loadedStyle(this.props.isMobile)}>
           <h1>{this.props.pokemonList.length}/151</h1>

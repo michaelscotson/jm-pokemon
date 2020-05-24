@@ -4,11 +4,16 @@ class PokedexLeft extends Component {
   leftColumnStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "250px",
-        height: "100%",
+        width: "144px",
+        minWidth: "144px",
+        height: "550px",
         float: "left",
         position: "sticky",
-        //top: "0",
+        //background: "yellow",
+        //border: "solid",
+        //borderColor: "yellow",
+        textAlign: "center",
+        top: "0px",
       };
     }
     return {
@@ -26,8 +31,13 @@ class PokedexLeft extends Component {
         position: "absolute",
         width: "144px",
         height: "72px",
-        left: "30%",
-        top: "25%",
+        //margin: "auto",
+        marginTop: "130px",
+        marginBottom: "0%",
+        right: "0",
+        textAlign: "center",
+
+        //background: "blue",
 
         fontFamily: "tinos",
         fontStyle: "normal",
@@ -64,10 +74,14 @@ class PokedexLeft extends Component {
         position: "absolute",
         width: "60px",
         height: "38px",
-        marginLeft: "42px",
-        marginRight: "42px",
-        left: "25%",
-        top: "60%",
+        paddingLeft: "42px",
+        paddingRight: "42px",
+
+        //background: "grey",
+        right: "0",
+        //margin: "auto",
+        marginTop: "300px",
+        //marginBottom: "0%",
 
         fontFamily: "tinos",
         fontStyle: "normal",

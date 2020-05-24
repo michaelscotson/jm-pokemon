@@ -43,7 +43,7 @@ The state contains
   */
   handleWindowResize = () => {
     console.log(window.innerWidth);
-    this.setState({ isMobile: window.innerWidth < 800 });
+    this.setState({ isMobile: window.innerWidth < 500 });
   };
 
   /* 
@@ -268,18 +268,48 @@ The state contains
     }
   };
 
-  containerStyle = (isMobile) => {
+  appStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        position: "relative",
-        padding: "auto",
-        width: "100%",
-        minWidth: "1000px",
+        //position: "relative",
+
+        //width: "100%",
+        //minWidth: "1000px",
         background: "#F4F4F4",
+        minWidth: "850px",
         float: "center",
         minHeight: "600px",
-
         height: "100vh",
+        //background: "blue",
+        //border: "solid",
+        //borderColor: "blue",
+      };
+    }
+    return {
+      position: "relative",
+      padding: "auto",
+      width: "100%",
+      background: "#F4F4F4",
+      float: "center",
+      height: "100vh",
+    };
+  };
+
+  componentContainerStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        //position: "relative",
+        background: "#F4F4F4",
+        //maxWidth: "1000px",
+        //margin: "auto",
+        //maxWidth: "1200px",
+        //paddingRight: "300px",
+        //paddingLeft: "300px",
+
+        margin: "auto",
+        //background: "red",
+        //border: "solid",
+        //borderColor: "red",
       };
     }
     return {
@@ -298,8 +328,9 @@ The state contains
         position: "absolute",
         left: "10%",
         top: "8%",
-        width: "30%",
-        height: "auto",
+        //width: "30%",
+        minHeight: "600px",
+        height: "90%",
         opacity: "0.04",
       };
     }
@@ -312,15 +343,19 @@ The state contains
     };
   };
 
+  /* 
+
+
+*/
   render() {
     return (
       <BrowserRouter>
-        <div className="App">
+        <div className="App" style={this.appStyle(this.state.isMobile)}>
+          <Header isMobile={this.state.isMobile} />
           <div
+            style={this.componentContainerStyle(this.state.isMobile)}
             className="container"
-            style={this.containerStyle(this.state.isMobile)}
           >
-            <Header isMobile={this.state.isMobile} />
             <img
               alt="Pikachu looking smug used as background for app"
               style={this.backgroundImageStyle(this.state.isMobile)}
