@@ -42,7 +42,7 @@ The state contains
   Called when window is resized. Should be throttled.
   */
   handleWindowResize = () => {
-    this.setState({ isMobile: isMobileOnly });
+    this.setState({ isMobile: isMobileOnly || window.innerWidth < 500 });
   };
 
   /* 
