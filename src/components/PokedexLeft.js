@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import scrollArrow from "./scrollArrow.png";
 
 class PokedexLeft extends Component {
   leftColumnStyle = (isMobile) => {
@@ -9,8 +10,8 @@ class PokedexLeft extends Component {
         height: "550px",
         float: "left",
         position: "sticky",
-
         textAlign: "center",
+        paddingRight: "44px",
         top: "0px",
       };
     }
@@ -30,11 +31,11 @@ class PokedexLeft extends Component {
         position: "absolute",
         width: "144px",
         height: "72px",
-        marginTop: "130px",
+        marginTop: "230px",
         marginBottom: "0%",
         right: "0",
-        textAlign: "center",
-
+        textAlign: "left",
+        paddingRight: "44px",
         fontFamily: "tinos",
         fontStyle: "normal",
         fontWeight: "bold",
@@ -67,11 +68,9 @@ class PokedexLeft extends Component {
         position: "absolute",
         width: "60px",
         height: "38px",
-        paddingLeft: "42px",
-        paddingRight: "42px",
 
-        right: "0",
-        marginTop: "300px",
+        left: "0",
+        top: "360px",
 
         fontFamily: "tinos",
         fontStyle: "normal",
@@ -90,6 +89,22 @@ class PokedexLeft extends Component {
       display: "none",
     };
   };
+
+  scrollImageStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        position: "absolute",
+        width: "18px",
+        height: "28px",
+        left: "21px",
+        top: "397px",
+      };
+    }
+    return {
+      display: "none",
+    };
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -100,6 +115,11 @@ class PokedexLeft extends Component {
           <h5 style={this.scrollTipStyle(this.props.isMobile)}>
             Scroll for more
           </h5>
+          <img
+            style={this.scrollImageStyle(this.props.isMobile)}
+            src={scrollArrow}
+            alt="scroll down arrow"
+          />
         </div>
       </React.Fragment>
     );
