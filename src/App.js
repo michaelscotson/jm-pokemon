@@ -7,6 +7,7 @@ import "./App.css";
 import axios from "axios";
 import localStorage from "local-storage";
 import pikachu from "./components/pikachu.png";
+import { isMobileOnly } from "react-device-detect";
 
 class App extends React.Component {
   /*
@@ -18,8 +19,7 @@ The state contains
  this app. 
  - numberReq: The number of pokemon requested from PokeAPI. 
   This is to ensure the same pokemon is not requested more than once. 
- - isMobile: true if the screen-size (innerWidth) is small (<800 wide), 
- false otherwise. 
+ - isMobile: true if isMobileOnly is true (from react-device-detect)
  -partyList: the pokemon in the user's party. Contains a copy of the pokemon JSON
  object in pokemonList. partyList is saved to and loaded from localstorage.
 
@@ -42,8 +42,7 @@ The state contains
   Called when window is resized. Should be throttled.
   */
   handleWindowResize = () => {
-    console.log(window.innerWidth);
-    this.setState({ isMobile: window.innerWidth < 500 });
+    this.setState({ isMobile: isMobileOnly });
   };
 
   /* 
@@ -51,7 +50,7 @@ The state contains
   151- the number of first generation pokemon. 
   */
   hasMore = () => {
-    return this.numberReq < 152;
+    return this.numberReq < 151;
   };
 
   /* 
@@ -280,9 +279,6 @@ The state contains
         float: "center",
         minHeight: "600px",
         height: "100vh",
-        //background: "blue",
-        //border: "solid",
-        //borderColor: "blue",
       };
     }
     return {
@@ -292,33 +288,27 @@ The state contains
       background: "#F4F4F4",
       float: "center",
       height: "100vh",
+      //background: "blue",
+      //border: "solid",
+      //borderColor: "blue",
     };
   };
 
   componentContainerStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        //position: "relative",
         background: "#F4F4F4",
-        //maxWidth: "1000px",
-        //margin: "auto",
-        //maxWidth: "1200px",
-        //paddingRight: "300px",
-        //paddingLeft: "300px",
-
         margin: "auto",
-        //background: "red",
-        //border: "solid",
-        //borderColor: "red",
       };
     }
     return {
       position: "relative",
       padding: "auto",
-      width: "100%",
       background: "#F4F4F4",
-      float: "center",
       height: "100vh",
+      //background: "orange",
+      //border: "solid",
+      //borderColor: "orange",
     };
   };
 
@@ -328,10 +318,11 @@ The state contains
         position: "absolute",
         left: "10%",
         top: "8%",
-        //width: "30%",
         minHeight: "600px",
         height: "90%",
         opacity: "0.04",
+        left: "30%",
+        transform: "translateX(-30%)",
       };
     }
     return {
@@ -343,10 +334,6 @@ The state contains
     };
   };
 
-  /* 
-
-
-*/
   render() {
     return (
       <BrowserRouter>

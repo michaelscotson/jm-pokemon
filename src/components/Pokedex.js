@@ -46,19 +46,26 @@ class Pokedex extends Component {
         float: "left",
         minWidth: "600px",
         overflowY: "hidden",
-        // background: "pink",
-        //border: "solid",
-        //borderColor: "pink",
+
         margin: "auto",
       };
     }
     return {
-      width: "100%",
-      float: "left",
+      //position: "absolute",
+      //width: "100%",
+      //float: "left",
       minWidth: "300px",
       maxWidth: "300px",
       overflowY: "hidden",
       display: "block",
+      margin: "auto",
+      //height: "70vh",
+      //background: "pink",
+      //border: "solid",
+      //borderColor: "pink",
+      paddingBottom: "150px",
+
+      //transform: "translateX(0%)",
     };
   };
 
@@ -73,17 +80,21 @@ class Pokedex extends Component {
         paddingTop: "50px",
         //paddingLeft: "2%",
         //marginLeft: "5%",
-        //background: "purple",
-        //border: "solid",
-        //borderColor: "purple",
+
         top: "0px",
       };
     }
     return {
-      width: "100%",
+      width: "270px",
       height: "50px",
       position: "sticky",
       top: "100px",
+      paddingLeft: "15px",
+      paddingRight: "15px",
+      //: "purple",
+      //border: "solid",
+      //borderColor: "purple",
+      margin: "auto",
     };
   };
 
@@ -108,7 +119,7 @@ class Pokedex extends Component {
     return {
       position: "fixed",
       top: "50px",
-      left: "220px",
+      left: "70%",
       textDecoration: "none",
       display: "inline-block",
       justifyContent: "center",
@@ -242,7 +253,6 @@ class Pokedex extends Component {
         transform: "translateX(-50%)",
       };
     }
-    return {};
   };
 
   render() {

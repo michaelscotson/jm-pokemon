@@ -9,20 +9,22 @@ class PokedexLeft extends Component {
         height: "550px",
         float: "left",
         position: "sticky",
-        //background: "yellow",
-        //border: "solid",
-        //borderColor: "yellow",
+
         textAlign: "center",
         top: "0px",
       };
     }
     return {
-      width: "100%",
+      width: "300px",
       height: "85px",
       position: "sticky",
       top: "0",
       opacity: "1",
       zindex: "100",
+      //background: "yellow",
+      //border: "solid",
+      //borderColor: "yellow",
+      margin: "auto",
     };
   };
   teamChooseStyle = (isMobile) => {
@@ -42,7 +44,7 @@ class PokedexLeft extends Component {
         fontFamily: "tinos",
         fontStyle: "normal",
         fontWeight: "bold",
-        fontSize: "30px",
+        fontSize: "33px",
         lineHeight: "100%",
 
         /* or 36px */
@@ -54,13 +56,13 @@ class PokedexLeft extends Component {
       position: "absolute",
       width: "144px",
       height: "72px",
-      left: "45px",
+      left: "20px",
       top: "10px",
 
       fontFamily: "tinos",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "30px",
+      fontSize: "33px",
       lineHeight: "100%",
 
       /* or 36px */

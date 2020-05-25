@@ -40,7 +40,8 @@ class PartyPreviewBar extends Component {
         width: "27px",
         height: "27px",
         opacity: "0.2",
-        marginBottom: "3.75px",
+        marginTop: "9px",
+        marginBottom: "13.5px",
         marginLeft: "9px",
         marginRight: "9px",
         display: "inline-block",
@@ -51,6 +52,7 @@ class PartyPreviewBar extends Component {
         width: "45px",
         height: "45px",
         opacity: "0.6",
+
         marginBottom: "4.5px",
         display: "inline-block",
         zIndex: "10",

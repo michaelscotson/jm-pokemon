@@ -18,7 +18,7 @@ class PartyPage extends Component {
   }
   ignore = (pokemon) => {};
 
-  navCircleContent = (isMobile) => {
+  navCircleContentStyle = (isMobile) => {
     if (!isMobile) {
       return {
         textAlign: "center",
@@ -58,7 +58,7 @@ class PartyPage extends Component {
       return {
         position: "absolute",
         left: "0%",
-        top: "70%",
+        top: "66%",
         textDecoration: "none",
         display: "flex",
         justifyContent: "center",
@@ -76,8 +76,8 @@ class PartyPage extends Component {
     }
     return {
       position: "fixed",
-      top: "50px",
-      left: "220px",
+      top: "5px",
+      left: "78%",
       textDecoration: "none",
       display: "inline-block",
       justifyContent: "center",
@@ -98,53 +98,52 @@ class PartyPage extends Component {
   partyColumnStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "55%",
+        width: "600px",
         height: "90%",
         float: "left",
         maxWidth: "600px",
-        overflowY: "auto",
+        minWidth: "600px",
+        overflowY: "none",
       };
     }
     return {
-      width: "300px",
-      float: "left",
-      display: "block",
-    };
-  };
+      position: "absolute",
+      minWidth: "300px",
+      maxWidth: "300px",
+      overflowY: "hidden",
+      height: "600px",
+      top: "123px",
 
-  leftColumnStyle = (isMobile) => {
-    if (!isMobile) {
-      return {
-        width: "10%",
-        minWidth: "250px",
-        height: "100%",
-        float: "left",
-        position: "sticky",
-      };
-    }
-    return {
-      width: "100%",
-      height: "85px",
-      position: "sticky",
-      top: "0",
-      opacity: "1",
-      zindex: "100",
+      //display: "block",
+      margin: "auto",
+      //height: "70vh",
+      //background: "red",
+      //border: "solid",
+      //borderColor: "red",
+
+      left: "50%",
+      transform: "translateX(-50%)",
     };
   };
 
   rightColumnStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "20%",
+        width: "80px",
         maxWidth: "70px",
         top: "53px",
         height: "100%",
         float: "left",
         position: "sticky",
-        marginLeft: "5%",
       };
     }
-    return {};
+    return {
+      display: "inline",
+      float: "right",
+      //background: "purple",
+      height: "100%",
+      width: "50%",
+    };
   };
 
   rightColumnTextStyle = (isMobile) => {
@@ -159,7 +158,7 @@ class PartyPage extends Component {
         fontFamily: "Tinos",
         fontStyle: "normal",
         fontWeight: "bold",
-        fontSize: "30px",
+        fontSize: "36px",
         lineHeight: "100%",
 
         /* or 36px */
@@ -169,10 +168,40 @@ class PartyPage extends Component {
     }
     return {
       position: "absolute",
-      width: "144px",
-      height: "72px",
+      width: "40px",
+      //height: "72px",
+      //left: "150px",
+      //top: "10px",
+
+      fontFamily: "Tinos",
+      fontStyle: "normal",
+      fontWeight: "bold",
+      fontSize: "24px",
+      lineHeight: "100%",
+
+      //background: "pink",
+      display: "inline",
       left: "150px",
-      top: "60px",
+      top: "19px",
+    };
+  };
+
+  leftColumnStyle = (isMobile) => {
+    if (!isMobile) {
+      return {
+        width: "144px",
+
+        height: "100%",
+        float: "left",
+      };
+    }
+    return {
+      //position: "absolute",
+      display: "inline",
+      height: "100%",
+      width: "50%",
+      //background: "orange",
+      float: "left",
     };
   };
 
@@ -182,13 +211,13 @@ class PartyPage extends Component {
         position: "absolute",
         width: "144px",
         height: "72px",
-        left: "30%",
+
         top: "25%",
 
         fontFamily: "Tinos",
         fontStyle: "normal",
         fontWeight: "bold",
-        fontSize: "30px",
+        fontSize: "33px",
         lineHeight: "100%",
 
         /* or 36px */
@@ -198,35 +227,40 @@ class PartyPage extends Component {
     }
     return {
       position: "absolute",
-      width: "144px",
-      height: "72px",
-      left: "45px",
-      top: "10px",
+      width: "90px",
+      height: "100%x",
+      //left: "0px",
+      //top: "10px",
 
       fontFamily: "tinos",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "30px",
+      fontSize: "33px",
       lineHeight: "100%",
-
+      //background: "blue",
       /* or 36px */
+      display: "inline",
 
       color: "#333333",
     };
   };
 
-  container = (isMobile) => {
+  containerStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        width: "100%",
-        minWidth: "1200px",
+        position: "absolute",
+        width: "820px",
         height: "90vh",
+        left: "50%",
+        transform: "translateX(-50%)",
       };
     }
     return {
       width: "100%",
       height: "90vh",
       paddingBottom: "20px",
+      //background: "grey",
+      //border: "solid",
     };
   };
 
@@ -256,7 +290,7 @@ class PartyPage extends Component {
           </h2>
 
           <Link to="/" style={this.navCircleStyle(this.props.isMobile)}>
-            <div style={this.navCircleContent(this.props.isMobile)}>
+            <div style={this.navCircleContentStyle(this.props.isMobile)}>
               <h3 style={this.navLinkStyle(this.props.isMobile)}>Dex</h3>
               <img
                 alt=""
@@ -270,15 +304,32 @@ class PartyPage extends Component {
     }
   }
 
+  mobileTopBarStyle = (isMobile) => {
+    if (isMobile) {
+      return {
+        position: "absolute",
+        width: "270px",
+        height: "72px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        //background: "white",
+        //border: "solid white",
+        marginTop: "10px",
+      };
+    }
+  };
+
   render() {
     return (
-      <div style={this.container(this.props.isMobile)}>
-        <div style={this.leftColumnStyle(this.props.isMobile)}>
-          <h2 style={this.leftColumnTextStyle(this.props.isMobile)}>
-            Ash's party
-          </h2>
+      <div style={this.containerStyle(this.props.isMobile)}>
+        <div style={this.mobileTopBarStyle(this.props.isMobile)}>
+          <div style={this.leftColumnStyle(this.props.isMobile)}>
+            <h2 style={this.leftColumnTextStyle(this.props.isMobile)}>
+              Ash's party
+            </h2>
+          </div>
+          {this.getRightBar(this.props.isMobile, false)}
         </div>
-        {this.getRightBar(this.props.isMobile, false)}
         <div style={this.partyColumnStyle(this.props.isMobile)}>
           {Object.keys(this.props.partyList).map((partyListKey, i) => (
             <div key={i + 100}>
