@@ -166,12 +166,46 @@ class Pokedex extends Component {
     };
   };
 
+  /*
+  isMobile: if the device is a mobile device
+  destopPosition: specifies if the location function is called from is 
+  the mobile postion (false) or desktop position (true)
+
+  Returns JSX if the device and position match. 
+  E.g. if a mobile device (isMobile === true) and 
+  mobile position (desktopPosition === false) then it will return
+
+  At the moment it is an XOR of the two parameters but it would probably be
+  clearer if it was something like:
+
+  getLeftBar(isMobile, mobilePosition) {
+    if ((isMobile === mobilePosition) {}
+  }
+  
+
+  */
   getLeftBar(isMobile, desktopPosition) {
     if ((isMobile && !desktopPosition) || (!isMobile && desktopPosition)) {
       return <PokedexLeft isMobile={this.props.isMobile} />;
     }
   }
 
+  /*
+  isMobile: if the device is a mobile device
+  destopPosition: specifies if the location function is called from is 
+  the mobile postion (false) or desktop position (true)
+
+  Returns JSX if the device and position match. 
+  E.g. if a mobile device (isMobile === true) and 
+  mobile position (desktopPosition === false) then it will return
+
+  At the moment it is an XOR of the two parameters but it would probably be
+  clearer if it was something like:
+
+  getPartyBar(isMobile, mobilePosition) {
+    if ((isMobile === mobilePosition) {}
+  }
+    */
   getPartyBar(isMobile, desktopPosition) {
     if ((isMobile && !desktopPosition) || (!isMobile && desktopPosition)) {
       return (
