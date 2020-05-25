@@ -58,7 +58,7 @@ class PartyPage extends Component {
       return {
         position: "absolute",
         left: "0%",
-        top: "66%",
+        top: "440px",
         textDecoration: "none",
         display: "flex",
         justifyContent: "center",
@@ -128,7 +128,7 @@ class PartyPage extends Component {
         maxWidth: "70px",
         top: "53px",
         height: "100%",
-        float: "left",
+        float: "right",
         position: "sticky",
       };
     }
@@ -147,15 +147,13 @@ class PartyPage extends Component {
         width: "144px",
         height: "72px",
         left: "30%",
-        top: "25%",
+        top: "230px",
 
         fontFamily: "Tinos",
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "36px",
         lineHeight: "100%",
-
-        /* or 36px */
 
         color: "#333333",
       };
@@ -201,15 +199,13 @@ class PartyPage extends Component {
         width: "144px",
         height: "72px",
 
-        top: "25%",
+        top: "230px",
 
         fontFamily: "Tinos",
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "33px",
         lineHeight: "100%",
-
-        /* or 36px */
 
         color: "#333333",
       };
@@ -234,7 +230,7 @@ class PartyPage extends Component {
     if (!isMobile) {
       return {
         position: "absolute",
-        width: "820px",
+        width: "904px",
         height: "90vh",
         left: "50%",
         transform: "translateX(-50%)",
