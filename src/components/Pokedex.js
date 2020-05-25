@@ -13,19 +13,12 @@ class Pokedex extends Component {
   pokedexContainerStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        //maxWidth: "100%",
         position: "relative",
         height: "80vh",
         overflowY: "auto",
-        //paddingRight: "10%",
-        //paddingLeft: "10%",
         margin: "auto",
         float: "center",
         minWidth: "850px",
-        //margin: "auto",
-        //background: "green",
-        //border: "solid",
-        //borderColor: "green",
       };
     }
     return {
@@ -39,7 +32,6 @@ class Pokedex extends Component {
   pokemonColumnStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        //width: "40%",
         maxWidth: "600px",
 
         height: "90%",
@@ -51,21 +43,12 @@ class Pokedex extends Component {
       };
     }
     return {
-      //position: "absolute",
-      //width: "100%",
-      //float: "left",
       minWidth: "300px",
       maxWidth: "300px",
       overflowY: "hidden",
       display: "block",
       margin: "auto",
-      //height: "70vh",
-      //background: "pink",
-      //border: "solid",
-      //borderColor: "pink",
       paddingBottom: "150px",
-
-      //transform: "translateX(0%)",
     };
   };
 
@@ -73,13 +56,10 @@ class Pokedex extends Component {
     if (!isMobile) {
       return {
         width: "60px",
-        //top: "60px",
         height: "100%",
         float: "left",
         position: "sticky",
         paddingTop: "50px",
-        //paddingLeft: "2%",
-        //marginLeft: "5%",
 
         top: "0px",
       };
@@ -91,9 +71,6 @@ class Pokedex extends Component {
       top: "100px",
       paddingLeft: "15px",
       paddingRight: "15px",
-      //: "purple",
-      //border: "solid",
-      //borderColor: "purple",
       margin: "auto",
     };
   };
@@ -226,11 +203,6 @@ class Pokedex extends Component {
       return {
         height: "50px",
         textAlign: "center",
-        //width: "1100px",
-
-        //border: "solid",
-        //borderColor: "orange",
-        //background: "orange",
         margin: "auto",
       };
     }
@@ -243,11 +215,6 @@ class Pokedex extends Component {
     if (!isMobile) {
       return {
         position: "absolute",
-        //background: "red",
-        //height: "100%",
-        //height: "80vh",
-        //border: "solid",
-        //borderColor: "red",
         width: "820px",
         left: "50%",
         transform: "translateX(-50%)",

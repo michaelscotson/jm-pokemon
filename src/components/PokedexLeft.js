@@ -21,9 +21,6 @@ class PokedexLeft extends Component {
       top: "0",
       opacity: "1",
       zindex: "100",
-      //background: "yellow",
-      //border: "solid",
-      //borderColor: "yellow",
       margin: "auto",
     };
   };
@@ -33,22 +30,16 @@ class PokedexLeft extends Component {
         position: "absolute",
         width: "144px",
         height: "72px",
-        //margin: "auto",
         marginTop: "130px",
         marginBottom: "0%",
         right: "0",
         textAlign: "center",
-
-        //background: "blue",
 
         fontFamily: "tinos",
         fontStyle: "normal",
         fontWeight: "bold",
         fontSize: "33px",
         lineHeight: "100%",
-
-        /* or 36px */
-
         color: "#333333",
       };
     }
@@ -79,11 +70,8 @@ class PokedexLeft extends Component {
         paddingLeft: "42px",
         paddingRight: "42px",
 
-        //background: "grey",
         right: "0",
-        //margin: "auto",
         marginTop: "300px",
-        //marginBottom: "0%",
 
         fontFamily: "tinos",
         fontStyle: "normal",

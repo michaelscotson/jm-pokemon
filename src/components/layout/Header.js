@@ -182,10 +182,7 @@ class Header extends Component {
         height: "80px",
         left: "0px",
         top: "0px",
-        //minWidth: "900px",
         background: "#333333",
-        //maxWidth: "1200px",
-        //margin: "auto",
       };
     }
     return {
@@ -202,7 +199,6 @@ class Header extends Component {
   render() {
     return (
       <header style={this.headerStyle(this.props.isMobile)}>
-        {/*Not sure if this is better as a div or image*/}
         <div style={this.jmLogoStyle(this.props.isMobile)}></div>
         <div style={this.navPopupStyle(this.props.isMobile)}>
           <svg

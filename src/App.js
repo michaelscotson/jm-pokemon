@@ -270,10 +270,6 @@ The state contains
   appStyle = (isMobile) => {
     if (!isMobile) {
       return {
-        //position: "relative",
-
-        //width: "100%",
-        //minWidth: "1000px",
         background: "#F4F4F4",
         minWidth: "850px",
         float: "center",
@@ -288,9 +284,6 @@ The state contains
       background: "#F4F4F4",
       float: "center",
       height: "100vh",
-      //background: "blue",
-      //border: "solid",
-      //borderColor: "blue",
     };
   };
 
@@ -306,9 +299,6 @@ The state contains
       padding: "auto",
       background: "#F4F4F4",
       height: "100vh",
-      //background: "orange",
-      //border: "solid",
-      //borderColor: "orange",
     };
   };
 
@@ -316,7 +306,6 @@ The state contains
     if (!isMobile) {
       return {
         position: "absolute",
-        left: "10%",
         top: "8%",
         minHeight: "600px",
         height: "90%",

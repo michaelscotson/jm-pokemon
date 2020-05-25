@@ -114,12 +114,7 @@ class PartyPage extends Component {
       height: "600px",
       top: "123px",
 
-      //display: "block",
       margin: "auto",
-      //height: "70vh",
-      //background: "red",
-      //border: "solid",
-      //borderColor: "red",
 
       left: "50%",
       transform: "translateX(-50%)",
@@ -140,7 +135,6 @@ class PartyPage extends Component {
     return {
       display: "inline",
       float: "right",
-      //background: "purple",
       height: "100%",
       width: "50%",
     };
@@ -169,9 +163,6 @@ class PartyPage extends Component {
     return {
       position: "absolute",
       width: "40px",
-      //height: "72px",
-      //left: "150px",
-      //top: "10px",
 
       fontFamily: "Tinos",
       fontStyle: "normal",
@@ -179,7 +170,6 @@ class PartyPage extends Component {
       fontSize: "24px",
       lineHeight: "100%",
 
-      //background: "pink",
       display: "inline",
       left: "150px",
       top: "19px",
@@ -196,11 +186,10 @@ class PartyPage extends Component {
       };
     }
     return {
-      //position: "absolute",
       display: "inline",
       height: "100%",
       width: "50%",
-      //background: "orange",
+
       float: "left",
     };
   };
@@ -229,16 +218,12 @@ class PartyPage extends Component {
       position: "absolute",
       width: "90px",
       height: "100%x",
-      //left: "0px",
-      //top: "10px",
 
       fontFamily: "tinos",
       fontStyle: "normal",
       fontWeight: "bold",
       fontSize: "33px",
       lineHeight: "100%",
-      //background: "blue",
-      /* or 36px */
       display: "inline",
 
       color: "#333333",
@@ -259,8 +244,6 @@ class PartyPage extends Component {
       width: "100%",
       height: "90vh",
       paddingBottom: "20px",
-      //background: "grey",
-      //border: "solid",
     };
   };
 
@@ -312,16 +295,14 @@ class PartyPage extends Component {
         height: "72px",
         left: "50%",
         transform: "translateX(-50%)",
-        //background: "white",
-        //border: "solid white",
         marginTop: "10px",
       };
     }
   };
 
-  render() {
-    return (
-      <div style={this.containerStyle(this.props.isMobile)}>
+  getLeftBar(isMobile) {
+    if (isMobile) {
+      return (
         <div style={this.mobileTopBarStyle(this.props.isMobile)}>
           <div style={this.leftColumnStyle(this.props.isMobile)}>
             <h2 style={this.leftColumnTextStyle(this.props.isMobile)}>
@@ -330,6 +311,25 @@ class PartyPage extends Component {
           </div>
           {this.getRightBar(this.props.isMobile, false)}
         </div>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <div style={this.leftColumnStyle(this.props.isMobile)}>
+            <h2 style={this.leftColumnTextStyle(this.props.isMobile)}>
+              Ash's party
+            </h2>
+          </div>
+          {this.getRightBar(this.props.isMobile, false)}
+        </React.Fragment>
+      );
+    }
+  }
+
+  render() {
+    return (
+      <div style={this.containerStyle(this.props.isMobile)}>
+        {this.getLeftBar(this.props.isMobile, false)}
         <div style={this.partyColumnStyle(this.props.isMobile)}>
           {Object.keys(this.props.partyList).map((partyListKey, i) => (
             <div key={i + 100}>
