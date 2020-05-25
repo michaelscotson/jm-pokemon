@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import pokeBall from "./pokeball.png";
 
+/*
+Generates images used for the party bar on the main (pokedex) page.
+
+If the pokemon provided is null, a pokeball image is generated, 
+otherwise an image of the pokemon is generated. 
+*/
 class PartyPreviewBar extends Component {
   generateParty(pokemon) {
     if (pokemon === null) {

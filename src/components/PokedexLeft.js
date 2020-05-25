@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import scrollArrow from "./scrollArrow.png";
 
+/*
+Component for the left side of the pokedex. 
+Should not really be it's own component since no other similar subsections 
+of party or pokedex page are their own components.
+
+*/
 class PokedexLeft extends Component {
   leftColumnStyle = (isMobile) => {
     if (!isMobile) {

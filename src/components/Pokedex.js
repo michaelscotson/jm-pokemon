@@ -7,9 +7,16 @@ import PokedexLeft from "./PokedexLeft";
 import { Link } from "react-router-dom";
 import arrow from "./arrow.png";
 
-class Pokedex extends Component {
-  ignore = (pokemon) => {};
+/*
+Component for "/" which is the pokedex page.
+Scrolling to the bottom of the list loads new pokemon 12 at a time until 
+a limit of 151 is reached. 
 
+Clicking on a pokemon will add it to the user's party as long as the party
+is not already full and the pokemon isn't already in the party.
+
+*/
+class Pokedex extends Component {
   pokedexContainerStyle = (isMobile) => {
     if (!isMobile) {
       return {
@@ -283,9 +290,9 @@ class Pokedex extends Component {
                   key={pokemon.id}
                   pokemon={pokemon}
                   addToParty={this.props.addToParty}
-                  deletePokemon={this.ignore}
+                  deletePokemon={null}
                   partyPagePokemon={false}
-                  changePokemonName={this.ignore}
+                  changePokemonName={null}
                 />
               ))}
             </InfiniteScroll>

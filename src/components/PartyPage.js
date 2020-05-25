@@ -5,7 +5,15 @@ import PropTypes from "prop-types";
 import arrow from "./arrow.png";
 import { Link } from "react-router-dom";
 
+/*
+Component for "/party" which stores the users current party. 
+Party members can be deleted by clicking on the cross and 
+renamed by clicking on the pokemon's name.
+
+*/
 class PartyPage extends Component {
+  /* Returns the number of members in the users party
+   */
   getPartyCount(partyList) {
     let count = 0;
     Object.keys(partyList).forEach((key, index) => {
@@ -16,7 +24,6 @@ class PartyPage extends Component {
 
     return count;
   }
-  ignore = (pokemon) => {};
 
   navCircleContentStyle = (isMobile) => {
     if (!isMobile) {
@@ -334,7 +341,7 @@ class PartyPage extends Component {
                 key={i}
                 pokemon={this.props.partyList[partyListKey]}
                 partyPagePokemon={true}
-                addToParty={this.ignore}
+                addToParty={null}
                 deletePokemon={this.props.deletePokemon}
                 changePokemonName={this.props.changePokemonName}
               />

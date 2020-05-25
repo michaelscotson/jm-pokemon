@@ -6,6 +6,10 @@ import jmLogo from "./Josephmark.png";
 import ash from "./ash.png";
 
 class Header extends Component {
+  /*
+  Used to set the opacity of the current page (1) and
+  links to other pages (0.6).
+  */
   getOpacity = (linkLocation) => {
     let currentLocation = this.props.location.pathname;
     if (currentLocation === linkLocation) {
@@ -57,7 +61,6 @@ class Header extends Component {
       background: `url(${ash})`,
       backgroundSize: "24px 24px",
       right: "5%",
-      //display: "none",
     };
   };
 
@@ -103,7 +106,6 @@ class Header extends Component {
         lineHeight: "100%",
         textDecoration: "none",
 
-        /* identical to box height', or 13px */
         letterSpacing: "0.04em",
         textTransform: "uppercase",
 
@@ -115,16 +117,6 @@ class Header extends Component {
     };
   };
 
-  headerContent = (isMobile) => {
-    if (!isMobile) {
-      return {
-        maxWidth: "1200px",
-        margin: "auto",
-      };
-    }
-    return {};
-  };
-
   rightHeaderContentStyle = (isMobile) => {
     if (!isMobile) {
       return {
@@ -134,9 +126,7 @@ class Header extends Component {
         height: "100%",
       };
     }
-    return {
-      //display: "none",
-    };
+    return {};
   };
 
   partyLinkStyle = (isMobile) => {
@@ -156,7 +146,6 @@ class Header extends Component {
         lineHeight: "100%",
         textDecoration: "none",
 
-        /* identical to box height', or 13px */
         letterSpacing: "0.04em",
         textTransform: "uppercase",
 
