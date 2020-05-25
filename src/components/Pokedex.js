@@ -57,7 +57,7 @@ class Pokedex extends Component {
       return {
         width: "60px",
         height: "100%",
-        float: "left",
+        float: "right",
         position: "sticky",
         paddingTop: "50px",
 
@@ -249,7 +249,7 @@ class Pokedex extends Component {
     if (!isMobile) {
       return {
         position: "absolute",
-        width: "820px",
+        width: "904px",
         left: "50%",
         transform: "translateX(-50%)",
       };
