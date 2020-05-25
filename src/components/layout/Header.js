@@ -29,7 +29,11 @@ class Header extends Component {
       };
     }
     return {
-      display: "none",
+      position: "absolute",
+      width: "24px",
+      height: "24px",
+      top: "5px",
+      right: "5%",
     };
   };
 
@@ -46,7 +50,14 @@ class Header extends Component {
       };
     }
     return {
-      display: "none",
+      position: "absolute",
+      width: "24px",
+      height: "24px",
+      top: "5px",
+      background: `url(${ash})`,
+      backgroundSize: "24px 24px",
+      right: "5%",
+      //display: "none",
     };
   };
 
@@ -124,7 +135,7 @@ class Header extends Component {
       };
     }
     return {
-      display: "none",
+      //display: "none",
     };
   };
 
@@ -241,13 +252,18 @@ class Header extends Component {
 
           <svg
             style={this.circleStyle(this.props.isMobile)}
-            width="56"
-            height="56"
-            viewBox="0 0 56 56"
+            width={this.props.isMobile ? "24" : "56"}
+            height={this.props.isMobile ? "24" : "56"}
+            viewBox={this.props.isMobile ? "0 0 24 24" : "0 0 56 56"}
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <circle cx="28" cy="28" r="28" fill="#F4F4F4" />
+            <circle
+              cx={this.props.isMobile ? "12" : "28"}
+              cy={this.props.isMobile ? "12" : "28"}
+              r={this.props.isMobile ? "12" : "28"}
+              fill="#F4F4F4"
+            />
           </svg>
           <div style={this.ashStyle(this.props.isMobile)}></div>
         </div>
